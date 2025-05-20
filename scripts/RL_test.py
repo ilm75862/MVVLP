@@ -23,6 +23,9 @@ if __name__ == "__main__":
         "DQN": DQNConfig(),
         # "A2C": A2CConfig(),
     }
+    log_file_path = f"../results/RL/metrics/metrics_result.json"
+    results = []
+
     for algo_name, algo_config in algorithm_configs.items():
         # Convolutional Filter Configuration
         conv_filters_1 = [
@@ -30,7 +33,7 @@ if __name__ == "__main__":
             (64, 4, 2),
             (64, 3, 1)
         ]
-        view = 'multi'
+        view = 'side'
         checkpoint_path = f"../RL/checkpoints/{algo_name}/{view}/30000/checkpoint_000300"
 
         os.makedirs(checkpoint_path, exist_ok=True)
@@ -49,8 +52,7 @@ if __name__ == "__main__":
 
         instruction_path = '../data/Command/test_command.json'
         instru_num = instru_len(instruction_path)
-        output_file = f'../results/RL/{algo_name}_result.json'
-        log_file_path = f"../results/RL/{algo_name}_result.txt"
+        output_file = f'../results/RL/parking/{algo_name}_result.json'
 
         experiments = run_rl_experiments(env, algo, instru_num, output_file, view)
 
@@ -63,7 +65,12 @@ if __name__ == "__main__":
                 "=" * 40
         )
         print(log_text)
+        record = {
+            "agent": algo_name,
+            "view": view,
+            "metrics": metrics
+        }
+        results.append(record)
 
-
-        with open(log_file_path, "a") as f:
-            f.write(log_text + "\n")  # 写入文件
+    with open(log_file_path, "w") as f:
+        json.dump(results, f, indent=2)

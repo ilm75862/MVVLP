@@ -369,7 +369,6 @@ def get_parking_metrics(experiments):
     APSE_Metrics = calculate_absolute_parking_slot_error(experiments)
     MR_Metrics = calculate_miss_rate(experiments)
     CSR_Metrics = calculate_matching_rate(experiments)
-    CSRL_Metrics = calculate_weighted_matching_rate(experiments)
     result_dis = calculate_distance(experiments)
-    return NE_Metrics, SR_Metrics, SRL_Metrics, APSE_Metrics, MR_Metrics, CSR_Metrics, CSRL_Metrics, result_dis
-    # CR   ,  SR  ,  TE, GDE  ,   MR ,   IGA,    _____,   DIS
+
+    return {"CR": NE_Metrics, "SR": SR_Metrics, "TE": SRL_Metrics, "GDE": APSE_Metrics, "MR": MR_Metrics, "IGA": CSR_Metrics, "DIS": result_dis}
