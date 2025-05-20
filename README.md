@@ -1,61 +1,84 @@
-# Demand-driven Autonomous Parking
+# Multi-View Benchmark Dataset for Vision-and-Language Navigation
 
 ## Install
-Dependencies:
 
-- [python 3.8](https://www.python.org/downloads/release/python-3818/) <3
-- [numpy](https://numpy.org/install/) <3
-- `pip install pandas` for data manipulation <3
-- `pip install stable-baselines3` for reinforcement learning <3
-- `pip install gym` for OpenAI's gym environments <3
-- `pip install transformers` for Huggingface's transformers <3
-- `pip install opencv-python` for computer vision tasks <3
-- `pip install ray` for parallel and distributed computing <3
-- `pip install dm_tree, typer, scipy` <3
-- `pip install h5py` for handling HDF5 files <3
+> [!NOTE] 
+> Linux with Python 3.8
+---
+First, clone our MVVLP GitHub repository:
 
-
-[//]: # (- `pip install fastapi` for building APIs <3)
-
-[//]: # (- `pip install ray` for parallel and distributed computing <3)
-
-[//]: # (- `pip install requests` for making HTTP requests <3)
-
-[//]: # (- `pip install gradio` for interactive web UIs <3)
-
-[//]: # (- `pip install uvicorn` for ASGI server <3)
-
+```shell
+git clone https://github.com/ilm75862/MVVLP.git
+```
+---
+Then, navigate to the `MVVLP` directory and install the dependencies listed in `requirements.txt`. It's recommended to create a new virtual environment using a package manager like `conda` or `uv`, and then install the dependencies:
+```shell
+cd MVVLP
+pip install -r requirements.txt
+```
+---
 ## Dataset
-This project runs with a specific dataset to function properly. Please download the dataset from the following link and save it to a local folder:
+This project runs with a specific dataset to function properly. Please download the dataset from the following link and save it to the local folder `MVVLP/data/`:
 
-[Download Dataset](https://doi.org/10.57760/sciencedb.12908)
+[![Hugging Face](https://img.shields.io/badge/HuggingFace-Dataset-yellow)](https://huggingface.co/datasets/TJIET/MVVLP)
 
 Ensure that you have downloaded the entire dataset and place the data files in the correct folder as specified in the project instructions.
 
-## Quick Start
-Follow the steps below to get started quickly with the Reinforcement Learning Environment Build and Test using the provided Python scripts:
-1. Ensure that you have downloaded and properly set up the dataset as described in [Dataset](#dataset).
-2. Clone the repository to your local computer. 
-3. Install any necessary dependencies.
-### Deep Learning Agent Demo
+---
+## Quick Evaluation in Vision-Language Parking Simulator
+Built on MVVLP dataset, the Vision-Language Parking simulator replicates realistic indoor parking environments and allows for testing various AI agents' understanding and reasoning capabilities under diverse visual and linguistic conditions.
 
-Run the script to enter the reinforcement learning environment and use the Perfect Parking agent to obtain inputs from the deep learning agent with the corresponding perfect action labels.
-```
-$ python training_data_with_deep_learning.py
-```
-### Reinforcement Learning Agent Demo
+---
+### MLLM Agents
+The script `LLM_test.py` enables systematic evaluation of different VLM agents across multiple instruction types and camera views, providing quantitative metrics to assess performance in simulated real-world tasks.
 
-Run the script to enter the reinforcement learning environment and quickly start training a simple DQN agent for autonomous parking task.
+```shell
+python ./scripts/LLM_test.py [--load] [--instr_types INSTR_TYPES ...] [--models MODELS ...] [--views VIEWS ...]
 ```
-$ python RL_demo.py
-```
+---
+#### ⚙️ Arguments
 
-### Test Demo
-Run the script to test the agent's performance. Here, a random agent is used, but any agent can be substituted. The results will be saved as JSON and ZIP files.
-```
-$ python test_demo.py
-```
+- `--instr_types`  
+  Specify one or more instruction formats. Default:  
+  `['raw', 'synonyms', 'long', 'short', 'abstract','test']`
 
+- `--models`  
+  List of vision-language models to evaluate. Default:  
+  `['deepseek-vl-7b-chat', 'Qwen2.5-VL-7B-Instruct', 'Janus-Pro-7B']`
+
+- `--views`  
+  Camera views available from the vehicle perspective. Default:  
+  `['front', 'left', 'right', 'combined', 'multi', 'side']`
+
+---
+#### 📁 Output
+
+For each combination of model, instruction type, and view:
+
+- Runs an experiment.
+- Saves the parking results to:  
+  `../results/MLLM/parking/<model>_<view>_<instr_type>_result.json`
+- Saves the MLLM metrics to:  
+  `../results/MLLM/metrics/metrics_results.json`
+---
+### Reinforcement Learning Agent
+
+#### Train
+The script `RL_train.py` facilitates the training of reinforcement learning agents within simulated environments, enabling policy optimization through trial-and-error interactions. It supports various configurations and training algorithms, providing a framework to benchmark agent learning progress and performance over time.
+```
+$ python ./scripts/RL_train.py
+```
+---
+#### Test
+Then you can test the RL agents and get the metrics with `RL_test.py`:
+```
+$ python ./scripts/RL_test.py
+```
+- Saves the parking results to:  
+  `../results/RL/parking/<agent_name>_result.json`
+- Saves the MLLM metrics to:  
+  `../results/RL/metrics/metrics_result.json`
+---
 
 ## License
 
