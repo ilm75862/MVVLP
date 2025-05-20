@@ -12,7 +12,7 @@ class PathLoader:
             experiment_paths = ['../data/Vision/Park_1/20250422']
         elif self.env_type == 'raw':
             experiment_paths = ['../data/Vision/Park_1/20250422']
-        elif self.env_type == 'change':
+        elif self.env_type == 'synonyms':
             experiment_paths = ['../data/Vision/Park_1/20250422']
         elif self.env_type == 'abstract':
             experiment_paths = ['../data/Vision/Park_1/20250422']

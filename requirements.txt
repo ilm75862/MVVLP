@@ -5,7 +5,6 @@ anyio==4.9.0
 attrdict==2.0.1
 attrs==25.3.0
 av==14.3.0
--e git+ssh://git@github.com/ReparkHjc/Demand_driven_Parking.git@4c385c71e025303451892516593dd209b4fdcc8b#egg=avp_env
 certifi==2025.4.26
 charset-normalizer==3.4.2
 click==8.1.8
@@ -106,3 +105,4 @@ typing_extensions==4.13.2
 tzdata==2025.2
 urllib3==2.4.0
 zipp==3.21.0
+-e .
