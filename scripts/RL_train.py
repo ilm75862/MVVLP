@@ -21,7 +21,6 @@ ray.init(num_gpus=1, logging_level=logging.ERROR)
 algorithm_configs = {
     "PPO": PPOConfig(),
     "DQN": DQNConfig(),
-    # "A2C": A2CConfig(),
 }
 
 # Convolutional Filter Configuration
@@ -54,7 +53,7 @@ def run_algorithm(algo_config, algo_name, total_timesteps, view, resume=False):
     if algo_name == "DQN":
         algo_config.replay_buffer_config.update({
             "capacity": 2000,
-            "storage_unit": "timesteps",  # 避免按 episode 存储
+            "storage_unit": "timesteps",
             "compress_observations": True
         })
     elif algo_name == "PPO":
@@ -74,7 +73,6 @@ def run_algorithm(algo_config, algo_name, total_timesteps, view, resume=False):
     timesteps = 0
 
     if resume:
-        # 获取最近一次保存的 checkpoint 路径
         checkpoints = [os.path.join(checkpoint_dir, name) for name in os.listdir(checkpoint_dir)]
         checkpoints = [ckpt for ckpt in checkpoints if os.path.isdir(ckpt)]
         if checkpoints:

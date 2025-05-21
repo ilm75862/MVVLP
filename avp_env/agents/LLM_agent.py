@@ -12,8 +12,8 @@ from qwen_vl_utils import process_vision_info
 import janus.models as janus_models
 import deepseek_vl.models as deepseek_models
 
-os.environ["HF_HUB_OFFLINE"] = "1"  # 强制使用本地文件
-os.environ["TRANSFORMERS_OFFLINE"] = "1"  # 禁用在线检查
+os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
 class JanusAgent:
     def __init__(self, model_path="../../Janus-Pro-7B"):
@@ -66,7 +66,7 @@ class JanusAgent:
         except:
             pass
 
-        return 0  # 默认返回前进
+        return 0
 
 
 class DeepseekVL2Agent:
@@ -122,7 +122,7 @@ class DeepseekVL2Agent:
         except:
             pass
 
-        return 0  # 默认返回前进
+        return 0
 
 class DSVL7BAgent:
     def __init__(self, model_path="../../deepseek-vl-7b-chat"):
@@ -175,7 +175,7 @@ class DSVL7BAgent:
         except:
             pass
 
-        return 0  # 默认返回前进
+        return 0
 
 
 class QwenVLAgent:
@@ -201,15 +201,13 @@ class QwenVLAgent:
             }
         ]
 
-        # 构建文本模板
+
         text = self.processor.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
 
-        # 视觉信息预处理
         image_inputs, video_inputs = process_vision_info(messages)
 
-        # 构建最终输入
         inputs = self.processor(
             text=[text],
             images=image_inputs,
@@ -218,7 +216,6 @@ class QwenVLAgent:
             return_tensors="pt"
         ).to(self.model.device)
 
-        # 推理生成
         generated_ids = self.model.generate(**inputs, max_new_tokens=10)
         generated_ids_trimmed = [
             out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
@@ -230,7 +227,6 @@ class QwenVLAgent:
             clean_up_tokenization_spaces=False
         )[0].strip()
 
-        # 解析整数动作
         try:
             action = int(output_text)
             if action in [0, 1, 2]:
@@ -238,4 +234,4 @@ class QwenVLAgent:
         except:
             pass
 
-        return 0  # 默认返回前进
+        return 0

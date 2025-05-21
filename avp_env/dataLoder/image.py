@@ -16,7 +16,6 @@ class ImageLoader:
     def _load_images(self):
         image_data = {}
         for experiment_path in self.experiment_paths:
-            # get park_id 和 experiment_id
             park_num = os.path.basename(os.path.dirname(experiment_path))  # Park_1
             park_id = park_num.split('_')[-1]  #  '1'
 
@@ -47,7 +46,6 @@ class ImageLoader:
     def _load_side_images(self):
         image_side_data = {}
         for experiment_path in self.experiment_paths:
-            # get park_id 和 experiment_id
             park_num = os.path.basename(os.path.dirname(experiment_path))  # Park_1
             park_id = park_num.split('_')[-1]  #  '1'
 
@@ -78,7 +76,6 @@ class ImageLoader:
     def _load_right_images(self):
         image_side_data = {}
         for experiment_path in self.experiment_paths:
-            # get park_id 和 experiment_id
             park_num = os.path.basename(os.path.dirname(experiment_path))  # Park_1
             park_id = park_num.split('_')[-1]  #  '1'
 

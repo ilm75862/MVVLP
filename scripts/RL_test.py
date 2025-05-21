@@ -15,13 +15,10 @@ def instru_len(instruction_path):
     return len(instruction_data)
 
 if __name__ == "__main__":
-    # 创建 AutonomousParkingEnv 环境实例
     env = RllibEnv()
-    # Algorithm Configuration List
     algorithm_configs = {
         "PPO": PPOConfig(),
         "DQN": DQNConfig(),
-        # "A2C": A2CConfig(),
     }
     log_file_path = f"../results/RL/metrics/metrics_result.json"
     results = []
