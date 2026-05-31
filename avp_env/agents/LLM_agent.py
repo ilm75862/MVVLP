@@ -67,11 +67,11 @@ class Qwen3VLThinkingAgent:
         if "</think>" in output_text:
             output_text = output_text.split("</think>")[-1].strip()
 
-        print(output_text)
+        # print(output_text)
         try:
             action = int(output_text)
             if action in [0, 1, 2]:
-                print(action)
+                # print(action)
                 return action
         except:
             pass
@@ -124,7 +124,7 @@ class Qwen3VLInstructAgent:
             skip_special_tokens=True,
             clean_up_tokenization_spaces=False
         )[0].strip()
-
+        print(output_text)
         try:
             action = int(output_text)
             if action in [0, 1, 2]:
