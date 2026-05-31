@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="vlpv1" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="vlpv1" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Remote Python 3.10.20 (sftp://ttpf@LNX-TTYYZ-4.lunet.lboro.ac.uk:22/home/lunet/ttpf/anaconda3/envs/LCVLP/bin/python3.10)" project-jdk-type="Python SDK" />
 </project>

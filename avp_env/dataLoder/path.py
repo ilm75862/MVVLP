@@ -5,21 +5,26 @@ class PathLoader:
 
     def load_path(self):
         if self.env_type == 'train':
-            # experiment_paths = ['../data/Vision/20240518_01']
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'test':
-            # experiment_paths = ['../data/Vision/20240521_01']
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'raw':
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'synonyms':
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'abstract':
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'short':
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         elif self.env_type == 'long':
             experiment_paths = ['../data/Vision/Park_1/20250422']
+            # experiment_paths = ['../data/Vision/Park_4/20250423']
         else:
             raise ValueError(f"Invalid env_type '{self.env_type}'. Please check your input.")
         return experiment_paths

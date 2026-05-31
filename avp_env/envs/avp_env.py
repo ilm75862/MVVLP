@@ -19,8 +19,11 @@ class AutonomousParkingEnv(gym.Env):
         # Initialize helpers
         self.image_loader = ImageLoader(self.env_type, self.image_raw_shape)
         self.data_reader = DataReader(self.env_type)
-        self.tokenizer = AutoTokenizer.from_pretrained("../bert-base-uncased")
-
+        self.tokenizer = None
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained("../bert-base-uncased")
+        except Exception:
+            pass
         # Initialize environment data
         self.image_data = self.image_loader.image_data
         # self.render_image = self.image_loader.render_image
@@ -99,7 +102,6 @@ class AutonomousParkingEnv(gym.Env):
         return self.park_id, self.experiment_id, self.path_num
 
     def step(self, action):
-
         # Execute action and return reward, next observation, whether to terminate, debugging information
         if self.current_position > int(self.path_num):
             reward = -2
@@ -109,10 +111,12 @@ class AutonomousParkingEnv(gym.Env):
             reward = 0
             self.current_position += 1
             done = False
+
         elif action == 0 and self.current_position == int(self.path_num):
             reward = -1
             done = True
             self.CurrentParkingSlot = []
+
         else:
             self.CurrentParkingSlot = self.get_parking_slots(action, self.current_position)
             done = True
@@ -225,8 +229,11 @@ class MetricsEnv(AutonomousParkingEnv):
         # Initialize helpers
         self.image_loader = ImageLoader(self.env_type, self.image_raw_shape)
         self.data_reader = DataReader(self.env_type)
-        self.tokenizer = AutoTokenizer.from_pretrained("../bert-base-uncased")
-
+        self.tokenizer = None
+        try:
+            self.tokenizer = AutoTokenizer.from_pretrained("../bert-base-uncased")
+        except Exception:
+            pass
         # Initialize environment data
         self.image_data = self.image_loader.image_data
         # self.render_image = self.image_loader.render_image

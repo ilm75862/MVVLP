@@ -8,7 +8,8 @@ def get_result_id(env, agent, view, instructions_index=None):
 
     while not done:
         position = env.getPosition()
-        img_np = env.render()[0]  # HWC image as numpy
+        img_np = state[0]
+        img_np[:, :, [0, 2]] = img_np[:, :, [2, 0]]
 
         img = get_view_image(img_np, view)
         prompt = build_parking_prompt(instruction, position, view)
