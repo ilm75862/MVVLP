@@ -17,7 +17,7 @@ if __name__ == "__main__":
     # parser.add_argument('--instr_types', nargs='+', type=str, default=['short','abstract','test'], help='List of instruction types')
     # parser.add_argument('--model', type=str, default='deepseek-vl-7b-chat', help='Name of model')
     # parser.add_argument('--models', nargs='+', type=str, default=['Qwen3-VL-8B-Think','Qwen3-VL-8B-Instruct','Qwen2.5-VL-7B-Instruct','Janus-Pro-7B'], help='Name of model')
-    parser.add_argument('--models', nargs='+', type=str, default=['Qwen3-VL-8B-Instruct','Qwen2.5-VL-7B-Instruct','Janus-Pro-7B'], help='Name of model')
+    parser.add_argument('--models', nargs='+', type=str, default=['Qwen3-VL-8B-Think'], help='Name of model')
     # parser.add_argument('--view', type=str, default='right', help='View of camera from vehicle')
     # parser.add_argument('--views', nargs='+', type=str, default=['front', 'left', 'right', 'combined', 'multi', 'side'], help='View of camera from vehicle')
     parser.add_argument('--views', nargs='+', type=str, default=['front', 'multi'], help='View of camera from vehicle')
@@ -25,8 +25,8 @@ if __name__ == "__main__":
 
     log_file_path = "../results/MLLM/metrics/metrics_results.json"
     results = []
-    for instr_type in args.instr_types:
-        for model in args.models:
+    for model in args.models:
+        for instr_type in args.instr_types:
             for view in args.views:
                 instruction_path = f'../data/Command/{instr_type}_command.json'
                 output_file = f'../results/MLLM/parking_lot_4/{model}_{view}_{instr_type}_result.json'

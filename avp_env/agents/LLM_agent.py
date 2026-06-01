@@ -16,6 +16,20 @@ os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
 
 
+def clean_prompt(prompt: str) -> str:
+    image_tokens = [
+        "<image>",
+        "<image_placeholder>",
+        "<｜image▁pad｜>",
+        "<|image_pad|>",
+        "<image_pad>",
+    ]
+
+    for tok in image_tokens:
+        prompt = prompt.replace(tok, "")
+
+    return prompt.strip()
+
 class Qwen3VLThinkingAgent:
     def __init__(self):
         self.model = Qwen3VLForConditionalGeneration.from_pretrained(
@@ -124,7 +138,7 @@ class Qwen3VLInstructAgent:
             skip_special_tokens=True,
             clean_up_tokenization_spaces=False
         )[0].strip()
-        print(output_text)
+        # print(output_text)
         try:
             action = int(output_text)
             if action in [0, 1, 2]:
@@ -148,7 +162,7 @@ class JanusAgent:
 
     def get_action(self, image: Image.Image, prompt: str) -> int:
         images = image if isinstance(image, list) else [image]
-
+        prompt = clean_prompt(prompt)
 
         content = [{"type": "image", "image": img} for img in images]
         content.append({"type": "text", "text": prompt})
@@ -160,7 +174,7 @@ class JanusAgent:
             }
         ]
 
-        inputs = processor.apply_chat_template(
+        inputs = self.processor.apply_chat_template(
             messages,
             add_generation_prompt=True,
             generation_mode="text",
