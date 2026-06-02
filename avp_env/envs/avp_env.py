@@ -54,7 +54,7 @@ class AutonomousParkingEnv(gym.Env):
             perfect_trajectory = [0] * (trajectory.path_id - 1)
             perfect_trajectory.append(trajectory.loc_id)
         else:
-            perfect_trajectory = [0] * int(trajectory.path_num)
+            perfect_trajectory = [0] * int(self.path_num)
         return perfect_trajectory
 
     def reset(self, InsIndex=None):

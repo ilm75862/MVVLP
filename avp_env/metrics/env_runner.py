@@ -1,5 +1,6 @@
 from avp_env.agents.image_process import get_view_image
 from avp_env.agents.prompt_process import build_parking_prompt
+from transformers import AutoTokenizer
 
 def get_result_id(env, agent, view, instructions_index=None):
     state = env.reset(instructions_index)
@@ -37,6 +38,37 @@ def get_rl_result_id(env, agent, view, instructions_index=None):
     while not done:
         action = agent.compute_single_action(state, explore=False)
 
+        state, reward, done, info = env.step(action)
+
+    last_slots = env.getCurrentParkingSlot()
+    path_id = env.getPosition()
+    loc_id = action
+
+    result_features = {
+        "path_id": path_id,
+        "loc_id": loc_id,
+        "distance": path_id,
+    }
+
+    result_id = last_slots[0].ParkingID if last_slots else []
+    return result_id, result_features
+
+def get_dl_result_id(env, agent, instructions_index=None):
+    state = env.reset(instructions_index)
+    done = False
+    instruction = env.getTargetInstruction().instruction
+    tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+
+    while not done:
+        img_np = state[0]
+
+        instruction_tokens = tokenizer.encode(
+            state[1], add_special_tokens=True,
+            max_length=128, padding='max_length',
+            truncation=True
+        )
+
+        action = agent.get_action(img_np, instruction_tokens)
         state, reward, done, info = env.step(action)
 
     last_slots = env.getCurrentParkingSlot()
