@@ -15,7 +15,7 @@ model = "cnnmlp"
 view = "multi"
 instr_type = "raw"
 instruction_path = f'../data/Command/{instr_type}_command.json'
-output_file = f'../results/MLLM/parking/{model}_{view}_{instr_type}_result.json'
+output_file = f'../results/DL/parking/{model}_{view}_{instr_type}_result.json'
 
 output_dir = os.path.dirname(output_file)
 os.makedirs(output_dir, exist_ok=True)

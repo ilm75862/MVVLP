@@ -61,7 +61,7 @@ def run_dl_experiments(env, agent, instru_num, output_file):
     with open(output_file, 'w') as json_file:
         json_file.write("[\n")
 
-        for idx in range(instru_num):
+        for idx in range(50, instru_num):
             result_id, result_features = get_dl_result_id(env, agent, idx)
             target_id, target_features = get_target_features(env)
 
